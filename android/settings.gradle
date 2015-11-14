@@ -1,0 +1,3 @@
+rootProject.name = 'RNNavigationExamples'
+
+include ':app'
