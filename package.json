@@ -1,11 +1,25 @@
 {
-  "name": "RNNavigationExamples",
+  "name": "react-native-navigation-examples",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "react-native start"
+    "upgrade": "react-native upgrade",
+    "start": "react-native start",
+    "start:android": "react-native run-android",
+    "start:ios": "open ios/RNNavigationExamples.xcodeproj",
+    "lint": "eslint src",
   },
   "dependencies": {
-    "react-native": "^0.14.2"
+    "@exponent/react-native-navigator": "^0.2.7",
+    "react-native": "^0.14.2",
+    "react-native-drawer": "^1.7.0",
+    "react-native-side-menu": "^0.15.1",
+    "react-redux": "^3.1.0",
+    "redux": "^3.0.4",
+    "redux-persist": "^1.4.1"
+  },
+  "devDependencies": {
+    "react-native-cli": "^0.1.7",
+    "eslint": "^1.9.0"
   }
 }
