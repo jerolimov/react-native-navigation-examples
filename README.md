@@ -1,17 +1,27 @@
-# react-native navigation examples
-
-> Compares different react-native navigators and drawers with common navigation patterns.
+> **Compares different react-native navigation UI / UX / DX options!**
+>
+> This example app compares different options to create a UI screen stack
+> as we now from Android (multiple Activities, Fragment concept later?,
+> the Drawer and the Toolbar) and/or iOS (NavigationController and Tabbar).
+>
+> The idea is to compare these UI elements in "real world scenarios" where we
+> want share the screen content between Android and iOS, but use a native look
+> and feel on each platform.
+>
+> Another common issue with the RN Navigators is that we need an option to
+> display modal dialogs without the NavigationBar (for example for a login)
+> and want to persist the screen state to have a great developer experience. ;)
 
 **UX focus:**
 
-- When possible try to use a native look and feel.
-- The project tests how to use the navigators NavBar elements as well as showing modal dialogs over it.
+- Use a native look and feel when possible.
+- Test options to show modal dialogs.
 
 **DX focus:**
 
-- This project will also use redux (later..) to (re)store the navigation stack when refreshing the app.
+- Persist the navigation stack.
 
-**Navigator components:**
+**Navigation components:**
 
 * [Navigator](https://facebook.github.io/react-native/docs/navigator.html)
 * [NavigatorIOS](https://facebook.github.io/react-native/docs/navigatorios.html)
@@ -27,7 +37,7 @@
 * [react-redux](https://github.com/rackt/react-redux/tree/v3.1.0), 3.x branch
 * [redux-persist](https://github.com/rt2zz/redux-persist)
 
-## Prepare dev setup
+### Prepare dev setup
 
 This project requires [node](https://nodejs.org/) 4+ and
 [react-native](https://facebook.github.io/react-native/) 0.14.
@@ -36,7 +46,7 @@ Use npm to install the local dependencies:
 
     npm install
 
-## Run Android version
+### Run Android version
 
 Requires that the Android SDK is installed and the env variable `ANDROID_HOME`
 is defined correctly.
@@ -54,7 +64,7 @@ Build the apk, deploy and start the application on a device or emulator:
 
     npm run start:android
 
-## Run iOS version
+### Run iOS version
 
 Start the server which allows the app to load the javascript bundle locally:
 
