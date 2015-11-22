@@ -181,7 +181,7 @@ export default class DrawerView extends Component {
 						main: { shadowRadius: ratio < .2 ? ratio * 25 : 5 }
 					}
 				}}
-				content={ renderSidebar() }
+				content={ renderSidebar && renderSidebar() }
 				onOpen={ onOpen }
 				onClose={ onClose }
 				styles={ drawerStyles }>

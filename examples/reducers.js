@@ -12,7 +12,7 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
 	switch(action.type) {
 		case REHYDRATE:
-			if(action.key === 'navigation' && action.payload && action.payload.version === SUPPORTED_VERSION) {
+			if(/*action.key === 'navigation' &&*/ action.payload && action.payload.version === SUPPORTED_VERSION) {
 				return { ...state, ...action.payload };
 			} else {
 				return state;

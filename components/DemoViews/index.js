@@ -1,37 +1,75 @@
 
-import React, { Component, View, Text } from 'react-native';
+import React, { Component, View, Text, StyleSheet } from 'react-native';
 
-export default class DemoView extends Component {
+const colors = {
+	'#EF9A9A': 'Red',
+	'#F48FB1': 'Pink',
+	'#CE93D8': 'Purple',
+	'#B39DDB': 'Deep Purple',
+	'#9FA8DA': 'Indigo',
+	'#90CAF9': 'Blue',
+	'#81D4FA': 'Light Blue',
+	'#80DEEA': 'Cyan',
+	'#80CBC4': 'Teal',
+	'#A5D6A7': 'Green',
+	'#C5E1A5': 'Light Green',
+	'#E6EE9C': 'Lime',
+	'#FFF59D': 'Yellow',
+	'#FFE082': 'Amber',
+	'#FFCC80': 'Orange',
+	'#FFAB91': 'Deep Orange',
+	'#BCAAA4': 'Brown'
+};
+
+const defaultStyle = StyleSheet.create({
+	view: {
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: 'lightgray',
+		borderWidth: 5,
+		borderColor: 'black'
+	}
+});
+
+class DemoView extends Component {
 	render() {
 		return (
-			<View style={[ { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'gray' }, this.props.style ]}>
-				<Text>Content:</Text>
+			<View style={[ defaultStyle.view, this.props.style ]}>
 				{ this.props.children }
 			</View>
 		);
 	}
 }
 
-export class Demo1 extends Component {
-	render() {
-		return <DemoView style={{ backgroundColor: 'red' }} />
+function createDemoView(backgroundColor, text) {
+	return class extends Component {
+		render() {
+			return (
+				<DemoView style={{ backgroundColor }}>
+					<Text>{{ text }}</Text>
+				</DemoView>
+			);
+		}
 	}
 }
 
-export class Demo2 extends Component {
-	render() {
-		return <DemoView style={{ backgroundColor: 'blue' }} />
-	}
-}
+const demoViews = {};
 
-export class Demo3 extends Component {
-	render() {
-		return <DemoView style={{ backgroundColor: 'green' }} />
-	}
-}
+const colorKeys = Object.keys(colors);
+const colorLength = colorKeys.length;
 
-export class Demo4 extends Component {
-	render() {
-		return <DemoView style={{ backgroundColor: 'yellow' }} />
+colorKeys.forEach((color, index) => {
+	demoViews['DemoView' + index] = createDemoView(color, colors[color])
+});
+
+export default {
+	...demoViews,
+	randomViewName: () => {
+		const index = parseInt(Math.random() * colorLength);
+		return {
+			type: 'DemoView' + index,
+			title: colors[colorKeys[index]]
+		};
 	}
 }
