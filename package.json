@@ -7,12 +7,14 @@
     "start": "react-native start",
     "start:android": "react-native run-android",
     "start:ios": "open ios/RNNavigationExamples.xcodeproj",
-    "lint": "eslint src",
+    "lint": "eslint src"
   },
   "dependencies": {
-    "@exponent/react-native-navigator": "^0.2.7",
+    "@exponent/react-native-navigator": "^0.3.0",
     "react-native": "^0.14.2",
     "react-native-drawer": "^1.7.0",
+    "react-native-router": "t4t5/react-native-router",
+    "react-native-scrollable-tab-view": "^0.1.10",
     "react-native-side-menu": "^0.15.1",
     "react-redux": "^3.1.0",
     "redux": "^3.0.4",
