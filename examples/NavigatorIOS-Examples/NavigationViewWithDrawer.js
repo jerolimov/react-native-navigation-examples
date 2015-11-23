@@ -1,13 +1,9 @@
 
 import React, { Component, View, Text, NavigatorIOS } from 'react-native';
 
-import HomeView from '../home/HomeView';
-import SettingsController from '../settings/SettingsController';
-import HelpView from '../content/HelpView';
+import DrawerView from '../../components/DrawerView';
 
-import DrawerView from '../../shared/ui/DrawerView';
-
-import images from '../../shared/images';
+import DemoViews, { randomViewName } from '../../components/DemoViews';
 
 export default class NavigationViewIOS extends Component {
 	toggleDrawer() {
@@ -50,8 +46,8 @@ export default class NavigationViewIOS extends Component {
 				initializeOpen={ drawerOpen }
 				disabled={ false }
 				renderSidebar={ renderSidebar }
-				onOpen={ switchDrawerOpenState.bind(null, true) }
-				onClose={ switchDrawerOpenState.bind(null, false) }>
+				onOpen={ switchDrawerOpenState && switchDrawerOpenState.bind(null, true) }
+				onClose={ switchDrawerOpenState && switchDrawerOpenState.bind(null, false) }>
 				{ this.renderNavigator() }
 			</DrawerView>
 		);

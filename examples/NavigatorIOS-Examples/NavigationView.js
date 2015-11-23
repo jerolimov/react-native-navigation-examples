@@ -1,63 +1,34 @@
 
 import React, { Component, View, Text, NavigatorIOS } from 'react-native';
 
-import HomeView from '../home/HomeView';
-import SettingsController from '../settings/SettingsController';
-import HelpView from '../content/HelpView';
+import DemoViews, { randomViewName } from '../../components/DemoViews';
 
-import DrawerView from '../../shared/ui/DrawerView';
-
-import images from '../../shared/images';
+import menuIcon from '../../components/MenuIcon/ic_menu_black_24dp.png';
 
 export default class NavigationViewIOS extends Component {
-	toggleDrawer() {
-		const { drawer } = this.refs;
-		if (drawer) {
-			drawer.toggle();
-		}
-	}
-
 	componentDidMount() {
 		const { navigator } = this.refs;
 
 		console.log('navigator mount', navigator);
-			for (var i = 1; i <= 10; i++) {
-				const nextRoute = {
-					component: HelpView,
-					title: '# ' + i,
-					rightButtonTitle: 'Next',
-					onRightButtonPress: () => {
-						this.refs.navigator.push(nextRoute);
-					},
-					passProps: { pushMe: () => {} },
-					wrapperStyle: { paddingTop: 64 }
-				}
-
-				setTimeout(() => {
-					navigator.push(nextRoute);
-				}, i * 1000 + 100);
+		/*for (var i = 1; i <= 10; i++) {
+			const nextRoute = {
+				component: HelpView,
+				title: '# ' + i,
+				rightButtonTitle: 'Next',
+				onRightButtonPress: () => {
+					this.refs.navigator.push(nextRoute);
+				},
+				passProps: { pushMe: () => {} },
+				wrapperStyle: { paddingTop: 64 }
 			}
+
+			setTimeout(() => {
+				navigator.push(nextRoute);
+			}, i * 1000 + 100);
+		}*/
 	}
 
 	render() {
-		const { drawerOpen, renderSidebar, switchDrawerOpenState } = this.props;
-		const { navigator } = this.refs;
-
-		console.log('NavigationView render', drawerOpen);
-
-		return (
-			<DrawerView ref='drawer' type='static'
-				initializeOpen={ drawerOpen }
-				disabled={ false }
-				renderSidebar={ renderSidebar }
-				onOpen={ switchDrawerOpenState.bind(null, true) }
-				onClose={ switchDrawerOpenState.bind(null, false) }>
-				{ this.renderNavigator() }
-			</DrawerView>
-		);
-	}
-
-	renderNavigator() {
 		const { navigationStack } = this.props;
 
 		console.log('NavigationView navigationStack', navigationStack);
@@ -66,10 +37,14 @@ export default class NavigationViewIOS extends Component {
 			pushMe: () => {}
 		};
 
+		const demoView = DemoViews[randomViewName()];
+
 		const initialRoute = {
-			component: HelpView,
+			component: () => {
+				return React.createElement(demoView);
+			},
 			title: 'Einstellungen',
-			leftButtonIcon: images.menu_icon_24,
+			leftButtonIcon: menuIcon,
 			onLeftButtonPress: () => {
 				this.toggleDrawer();
 			},
@@ -83,10 +58,10 @@ export default class NavigationViewIOS extends Component {
 
 		const initialRoute2 = {
 			component: () => {
-				return <HelpView />;
+				return React.createElement(demoView);
 			},
 			title: 'Einstellungen',
-			leftButtonIcon: images.menu_icon_24,
+			leftButtonIcon: menuIcon,
 			onLeftButtonPress: () => {
 				this.toggleDrawer();
 			},
@@ -97,7 +72,7 @@ export default class NavigationViewIOS extends Component {
 		}
 
 		const nextRoute = {
-			component: HelpView,
+			component: React.createElement(demoView),
 			title: 'Next',
 			rightButtonTitle: 'Next',
 			onRightButtonPress: () => {

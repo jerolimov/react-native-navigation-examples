@@ -1,15 +1,11 @@
 
 import React, { Component, View, Animated, Text, Image, TouchableOpacity } from 'react-native';
 
-import HomeView from '../home/HomeView';
-import SettingsController from '../settings/SettingsController';
-import HelpView from '../content/HelpView';
+import DrawerView from '../../components/DrawerView';
 
-import DrawerView from '../../shared/ui/DrawerView';
+import DemoViews, { randomView } from '../../components/DemoViews';
 
 import ExNavigator from '@exponent/react-native-navigator';
-
-import images from '../../shared/images';
 
 const navigationBarStyles = {
 	barRightButton: [ ExNavigator.Styles.barRightButton ],
@@ -17,29 +13,32 @@ const navigationBarStyles = {
 }
 
 const routes = {
-	getHomeRoute() {
+	getRoot() {
+		const view = randomView();
 		return {
 			getTitle() {
-				return 'Home';
+				return view.title;
 			},
 			getSceneClass() {
-				return HomeView;
+				return view.scene;
 			},
-			onDidFocus() {
-				console.log('Home Scene received focus.');
-			},
-			onDidBlur(event) {
-				console.log('Home Scene lost focus.');
+			renderRightButton(navigator, index, state) {
+				const onPress = () => { navigator.push(routes.getRoot()); }
+				return (
+					<TouchableOpacity onPress={ onPress } style={ navigationBarStyles.barRightButton }>
+						<Text style={ navigationBarStyles.barRightButtonText }>Next</Text>
+					</TouchableOpacity>
+				);
 			}
 		}
 	},
-	getSettingsRoute() {
+	getNextRoute() {
 		return {
 			getTitle() {
 				return 'Settings';
 			},
 			getSceneClass() {
-				return SettingsController;
+				return randomView()
 			},
 			renderLeftButton(navigator, index, state) {
 				if (index == 0) {
@@ -90,7 +89,7 @@ export default class NavigationViewEx extends Component {
 		if (navigator) {
 			// TODO: Use another "nextTick" variant here which ensures that the route stack is correct after the pop() call.
 			setTimeout(() => {
-				saveNavigationStack(navigator.getCurrentRoutes());
+//				saveNavigationStack(navigator.getCurrentRoutes());
 			}, 0);
 		}
 	}
@@ -106,36 +105,34 @@ export default class NavigationViewEx extends Component {
 				initializeOpen={ drawerOpen }
 				disabled={ navigator && navigator.getCurrentRoutes().length > 1 }
 				renderSidebar={ renderSidebar }
-				onOpen={ switchDrawerOpenState.bind(null, true) }
-				onClose={ switchDrawerOpenState.bind(null, false) }>
+				onOpen={ switchDrawerOpenState && switchDrawerOpenState.bind(null, true) }
+				onClose={ switchDrawerOpenState && switchDrawerOpenState.bind(null, false) }>
 				{ this.renderNavigator() }
 			</DrawerView>
 		);
 	}
 
 	renderNavigator() {
-		const { navigationStack } = this.props;
+//		const { navigationStack } = this.props;
+		const navigationStack = [ routes.getRoot() ];
 
 		console.log('NavigationView render navigationStack', navigationStack);
 
 		return (
-			<View style={{ flex: 1, backgroundColor: 'black' }}>
-				<Animated.View style={{ flex: 1, transform: [ { scale: 1.0 } ], opacity: 1.0 }}>
-					<ExNavigator ref='navigator'
-							initialRoute={ routes.getSettingsRoute() }
-							renderScene={ this.renderScene.bind(this) }
-							configureScene={ this.configureScene.bind(this) }
-							onDidFocus={ this.saveNavigationStack.bind(this) }
+			<ExNavigator ref='navigator'
+				initialRouteStack={ navigationStack }
+				renderScene={ this.renderScene.bind(this) }
+				configureScene={ this.configureScene.bind(this) }
+				onDidFocus={ this.saveNavigationStack.bind(this) }
 
-							navigationBarStyle={{ backgroundColor: '#1976D2' }}
-							titleStyle={{ color: 'white' }}
-							barButtonTextStyle={{ color: 'white' }}
-							barButtonIconStyle={{ tintColor: 'white' }}
+				navigationBarStyle={{ backgroundColor: '#1976D2' }}
+				titleStyle={{ color: 'white' }}
+				barButtonTextStyle={{ color: 'white' }}
+				barButtonIconStyle={{ tintColor: 'white' }}
 
-							style={{ flex: 1 }}
-							sceneStyle={{ paddingTop: 64 }} />
-				</Animated.View>
-			</View>
+				style={{ flex: 1 }}
+				sceneStyle={{ paddingTop: 64 }}
+			/>
 		);
 	}
 

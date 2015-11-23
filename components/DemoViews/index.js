@@ -65,7 +65,18 @@ colorKeys.forEach((color, index) => {
 
 export default {
 	...demoViews,
+	randomView: () => {
+		const index = parseInt(Math.random() * colorLength);
+		return {
+			scene: demoViews['DemoView' + index],
+			title: colors[colorKeys[index]]
+		};
+	},
 	randomViewName: () => {
+//		const index = parseInt(Math.random() * colorLength);
+//		return 'DemoView' + index;
+//	},
+//	randomViewOption: () => {
 		const index = parseInt(Math.random() * colorLength);
 		return {
 			type: 'DemoView' + index,
